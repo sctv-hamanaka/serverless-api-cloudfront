@@ -34,6 +34,8 @@ $ npm install --save-dev serverless-api-cloudfront
   CloudFront domain name.
 * First deployment may be quite long (e.g. 10 min) as Serverless is waiting for
   CloudFormation to deploy CloudFront distribution.
+* If `enabled` parameter is false, the CloudFront configuration is created but it is disabled.
+  The waiting time for initial deployment will not change much, though.
 
 ```
 # add in your serverless.yml
@@ -43,6 +45,7 @@ plugins:
 
 custom:
   apiCloudFront:
+    enabled: true
     domain: my-custom-domain.com
     certificate: arn:aws:acm:us-east-1:000000000000:certificate/00000000-1111-2222-3333-444444444444
     waf: 00000000-0000-0000-0000-000000000000

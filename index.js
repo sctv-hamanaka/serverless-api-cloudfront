@@ -57,6 +57,7 @@ class ServerlessApiCloudFrontPlugin {
   prepareResources(resources) {
     const distributionConfig = resources.Resources.ApiDistribution.Properties.DistributionConfig;
 
+    this.prepareEnabled(distributionConfig);
     this.prepareLogging(distributionConfig);
     this.prepareDomain(distributionConfig);
     this.preparePriceClass(distributionConfig);
@@ -64,6 +65,16 @@ class ServerlessApiCloudFrontPlugin {
     this.prepareComment(distributionConfig);
     this.prepareCertificate(distributionConfig);
     this.prepareWaf(distributionConfig);
+  }
+
+  prepareEnabled(distributionConfig) {
+    const enabled = this.getConfig('enabled', null);
+
+    if (enabled !== null) {
+      distributionConfig.Enabled = enabled ? true : false;
+    } else {
+      distributionConfig.Enabled = true;
+    }
   }
 
   prepareLogging(distributionConfig) {
